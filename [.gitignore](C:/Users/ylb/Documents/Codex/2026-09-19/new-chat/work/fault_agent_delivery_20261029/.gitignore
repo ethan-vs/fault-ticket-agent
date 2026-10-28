@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+.venv/
+.idea/
+__pycache__/
+*.pyc
+.pytest_cache/
+logs/
+.state/
+.models/
+ci-artifacts/
