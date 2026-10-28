@@ -1,0 +1,38 @@
+name: Agent offline regression
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-core.txt
+      - name: Install core dependencies
+        run: python -m pip install -r requirements-core.txt
+      - name: Run offline regression without real model calls
+        run: python run_ci_checks.py
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: offline-test-results
+          path: ci-artifacts/report.json
+          if-no-files-found: warn
+          retention-days: 14
