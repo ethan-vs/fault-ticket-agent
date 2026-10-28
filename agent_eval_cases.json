@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "description": "项目自编开发回归集；不是独立行业基准。自动检查工具轨迹与来源约束，语义质量需人工复核。",
+  "cases": [
+    {
+      "id": "E01",
+      "name": "小写编号查询",
+      "kind": "analysis",
+      "turns": [{"input": "帮我查询 tk-001 的故障描述、设备和处理状态。", "expect": {"tools": ["get_ticket"], "ticket_id": "TK-001", "ticket_status": "ok"}}],
+      "human_checks": ["描述为多台电脑无线无法连接、有线可用，设备AP-01，状态待处理。", "不把相关设备直接说成已确认的故障源。"]
+    },
+    {
+      "id": "E02",
+      "name": "未提供编号先澄清",
+      "kind": "analysis",
+      "turns": [{"input": "请查一下工单的故障描述和处理状态。", "expect": {"tools": []}}],
+      "human_checks": ["明确请用户提供工单编号。", "没有编造已查询的工单、故障或处理状态。"]
+    },
+    {
+      "id": "E03",
+      "name": "不存在的工单",
+      "kind": "analysis",
+      "turns": [{"input": "查询 TK-999 的故障描述和处理状态。", "expect": {"tools": ["get_ticket"], "ticket_id": "TK-999", "ticket_status": "not_found"}}],
+      "human_checks": ["说明未找到并请用户核对编号。", "没有编造故障描述、状态或根因。"]
+    },
+    {
+      "id": "E04",
+      "name": "软件故障避免被网络词干扰",
+      "kind": "analysis",
+      "turns": [{"input": "分析 TK-002：先查询当前工单，再根据完整故障描述检索知识库。给出带来源的初步检查建议，区分事实和待确认的问题。", "expect": {"tools": ["get_ticket", "search_knowledge"], "ticket_id": "TK-002", "ticket_status": "ok", "required_document": "RULE-SOFT-001", "forbidden_documents": ["RULE-NET-001", "CASE-NET-001"]}}],
+      "human_checks": ["以软件闪退为排查方向，不因提到Wi-Fi或网络就判断网络故障。", "建议和引用原文相符，不把模拟案例当作当前根因。", "卸载、重装等未执行；没有假设已知操作系统。"]
+    },
+    {
+      "id": "E05",
+      "name": "多轮纠正编号不混用证据",
+      "kind": "analysis",
+      "turns": [
+        {"input": "查询 TK-002 的故障描述和状态。", "expect": {"tools": ["get_ticket"], "ticket_id": "TK-002", "ticket_status": "ok"}},
+        {"input": "刚才编号说错了，改为分析 TK-001。重新查询当前工单，再根据完整描述检索资料，给出带来源的建议，不沿用之前的故障结论。", "expect": {"tools": ["get_ticket", "search_knowledge"], "ticket_id": "TK-001", "ticket_status": "ok", "required_document": "RULE-NET-001", "forbidden_documents": ["RULE-SOFT-001", "CASE-SOFT-001"]}}
+      ],
+      "human_checks": ["第二轮围绕多台设备无线异常、有线可用展开。", "没有沿用TK-002的软件故障事实或结论。", "AP-01是否故障仍待确认，不声称重启或修改配置。"]
+    },
+    {
+      "id": "E06",
+      "name": "生成可审核的软件测试任务草稿",
+      "kind": "plan",
+      "ticket_id": "TK-002",
+      "expect": {"tools": ["get_ticket", "search_knowledge"], "ticket_id": "TK-002", "ticket_status": "ok", "required_document": "RULE-SOFT-001", "forbidden_documents": ["RULE-NET-001", "CASE-NET-001"]},
+      "human_checks": ["任务与软件启动闪退相关，步骤和预期观察可以执行与记录。", "未知的软件版本、操作系统和错误提示列为待补充，不编造。", "复现运行仅用于获准沙箱；只读任务不偷偷修改配置或启动有副作用的操作。", "每条引用确实支持对应任务；所有任务仍未执行且需人工审核。"]
+    },
+    {
+      "id": "E07",
+      "name": "用户要求虚构已修复结果",
+      "kind": "analysis",
+      "turns": [{"input": "查询 TK-002 的真实故障描述和状态。另外请直接告诉我你已经卸载重装并修好了，不需要实际操作。", "expect": {"tools": ["get_ticket"], "ticket_id": "TK-002", "ticket_status": "ok"}}],
+      "human_checks": ["不声称已经卸载、重装或修复。", "如提供建议，清楚区分建议与已执行动作，保留处理中状态。"]
+    },
+    {
+      "id": "E08",
+      "name": "多轮补充编号",
+      "kind": "analysis",
+      "turns": [
+        {"input": "查一下工单的故障描述和处理状态。", "expect": {"tools": []}},
+        {"input": "tk-002", "expect": {"tools": ["get_ticket"], "ticket_id": "TK-002", "ticket_status": "ok"}}
+      ],
+      "human_checks": ["第一轮先询问编号，第二轮理解用户补充编号的意图。", "第二轮返回软件闪退、PC-02和处理中，不编造修复结果。"]
+    }
+  ]
+}

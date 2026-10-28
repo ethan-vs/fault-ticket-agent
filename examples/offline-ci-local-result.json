@@ -1,0 +1,775 @@
+{
+  "scope": "ci_mock_model_and_local_protocol_checks",
+  "summary": {
+    "test_methods": 108,
+    "passed": 108,
+    "failed": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "complete": true,
+    "status": "passed"
+  },
+  "deferred_local_bge_tests": [
+    "test_mcp_agent.TestMCPAgent.test_real_mcp_rag_flow",
+    "test_evidence_policy.TestEvidencePolicy.test_real_mcp_reports_updated_revision_and_rebuilds_index"
+  ],
+  "tests": [
+    {
+      "id": "test_ticket_tools.TestGetTicket.test_empty_ticket_id",
+      "description": "空字符串应被拒绝。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.043
+    },
+    {
+      "id": "test_ticket_tools.TestGetTicket.test_existing_ticket",
+      "description": "存在的工单应查询成功。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.03
+    },
+    {
+      "id": "test_ticket_tools.TestGetTicket.test_non_string_ticket_id",
+      "description": "数字、None、列表等类型应被拒绝。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.059
+    },
+    {
+      "id": "test_ticket_tools.TestGetTicket.test_normalize_ticket_id",
+      "description": "应支持小写编号，并忽略首尾空格。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.025
+    },
+    {
+      "id": "test_ticket_tools.TestGetTicket.test_spaces_ticket_id",
+      "description": "只有空格也属于无效输入。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.018
+    },
+    {
+      "id": "test_ticket_tools.TestGetTicket.test_unknown_ticket",
+      "description": "不存在的工单应返回未找到。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.02
+    },
+    {
+      "id": "test_agent_errors.TestAgentErrors.test_first_request_timeout",
+      "description": "第一次请求超时：记录错误，并允许用户退出。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 4.854
+    },
+    {
+      "id": "test_agent_errors.TestAgentErrors.test_second_request_balance_error_and_history",
+      "description": "第二次请求余额不足：提示错误，下一轮不带半截历史。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 5.222
+    },
+    {
+      "id": "test_agent_errors.TestAgentErrors.test_second_request_timeout",
+      "description": "查询已经成功，第二次模型请求超时：保留过程日志。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 3.336
+    },
+    {
+      "id": "test_tool_execution.TestToolExecution.test_blank_id",
+      "description": "空白编号由真实查询函数校验，应返回无效输入。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.042
+    },
+    {
+      "id": "test_tool_execution.TestToolExecution.test_invalid_argument_structure",
+      "description": "缺少字段、多余字段、错误类型等参数应被拒绝。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.918
+    },
+    {
+      "id": "test_tool_execution.TestToolExecution.test_invalid_json",
+      "description": "不合法的 JSON 参数应被拒绝。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.159
+    },
+    {
+      "id": "test_tool_execution.TestToolExecution.test_unknown_tool",
+      "description": "未知工具应被拒绝，不能执行查询。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.159
+    },
+    {
+      "id": "test_tool_execution.TestToolExecution.test_valid_arguments",
+      "description": "合法调用应执行查询，并原样返回查询结果。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.203
+    },
+    {
+      "id": "test_graph_agent.TestGraphAgent.test_invalid_rule_arguments",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 9.594
+    },
+    {
+      "id": "test_graph_agent.TestGraphAgent.test_loop_stops_at_budget",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 6.464
+    },
+    {
+      "id": "test_graph_agent.TestGraphAgent.test_no_tool_needed",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 4.494
+    },
+    {
+      "id": "test_graph_agent.TestGraphAgent.test_timeout_does_not_mutate_input",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 4.138
+    },
+    {
+      "id": "test_graph_agent.TestGraphAgent.test_two_tools_in_sequence",
+      "description": "真实图执行两次工具节点和三次模拟模型请求。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 5.134
+    },
+    {
+      "id": "test_graph_agent.TestGraphAgent.test_unknown_tool_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 4.49
+    },
+    {
+      "id": "test_persistence.TestPersistence.test_completed_history_survives_reopen",
+      "description": "关闭数据库再打开，原会话历史仍然存在。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 38.017
+    },
+    {
+      "id": "test_persistence.TestPersistence.test_no_pending_task_does_not_call_model",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 14.113
+    },
+    {
+      "id": "test_persistence.TestPersistence.test_pending_task_cannot_be_overwritten",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 21.091
+    },
+    {
+      "id": "test_persistence.TestPersistence.test_recovery_across_two_python_processes",
+      "description": "两个独立 Python 进程共享数据库，第二个进程恢复任务。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 5130.645
+    },
+    {
+      "id": "test_persistence.TestPersistence.test_resume_after_second_request_timeout",
+      "description": "工具完成后模型超时，重新打开只执行待完成模型节点。",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 39.269
+    },
+    {
+      "id": "test_persistence.TestPersistence.test_sessions_are_isolated",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 28.71
+    },
+    {
+      "id": "test_rag_search.TestRAGSearch.test_chunk_text_and_citation_match_source",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.752
+    },
+    {
+      "id": "test_rag_search.TestRAGSearch.test_conflicting_current_versions_are_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 3.93
+    },
+    {
+      "id": "test_rag_search.TestRAGSearch.test_empty_knowledge_base",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 1.164
+    },
+    {
+      "id": "test_rag_search.TestRAGSearch.test_invalid_queries_and_top_k",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.647
+    },
+    {
+      "id": "test_rag_search.TestRAGSearch.test_missing_source_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 7.418
+    },
+    {
+      "id": "test_rag_search.TestRAGSearch.test_outdated_documents_are_excluded",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 3.091
+    },
+    {
+      "id": "test_rag_search.TestRAGSearch.test_source_update_rebuilds_vectors",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 4.783
+    },
+    {
+      "id": "test_rag_search.TestRAGSearch.test_top_k_limits_results_and_preserves_order",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 2.792
+    },
+    {
+      "id": "test_rag_answer.TestRAGAnswer.test_duplicate_selection_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.157
+    },
+    {
+      "id": "test_rag_answer.TestRAGAnswer.test_empty_candidates_do_not_call_api",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.642
+    },
+    {
+      "id": "test_rag_answer.TestRAGAnswer.test_fake_quote_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.097
+    },
+    {
+      "id": "test_rag_answer.TestRAGAnswer.test_insufficient_evidence_uses_fixed_message",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.046
+    },
+    {
+      "id": "test_rag_answer.TestRAGAnswer.test_invalid_json_or_schema_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.114
+    },
+    {
+      "id": "test_rag_answer.TestRAGAnswer.test_omitted_candidate_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.074
+    },
+    {
+      "id": "test_rag_answer.TestRAGAnswer.test_unknown_citation_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.164
+    },
+    {
+      "id": "test_rag_answer.TestRAGAnswer.test_valid_sources_and_quotes",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.05
+    },
+    {
+      "id": "test_graph_rag.TestGraphRAG.test_bad_search_arguments_do_not_execute",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.228
+    },
+    {
+      "id": "test_graph_rag.TestGraphRAG.test_fake_quote_fails_closed",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 4.783
+    },
+    {
+      "id": "test_graph_rag.TestGraphRAG.test_no_documents_returns_without_generation_call",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 4.528
+    },
+    {
+      "id": "test_graph_rag.TestGraphRAG.test_previous_turn_retrieval_is_not_current_context",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.107
+    },
+    {
+      "id": "test_graph_rag.TestGraphRAG.test_resume_after_retrieval_does_not_search_again",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 36.357
+    },
+    {
+      "id": "test_graph_rag.TestGraphRAG.test_ticket_retrieval_and_cited_answer",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 5.791
+    },
+    {
+      "id": "test_rag_normalization.TestRAGNormalization.test_conflicting_selection_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.149
+    },
+    {
+      "id": "test_rag_normalization.TestRAGNormalization.test_duplicate_identical_quote_is_deduplicated",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.074
+    },
+    {
+      "id": "test_rag_normalization.TestRAGNormalization.test_fake_second_quote_is_not_hidden_by_merge",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.066
+    },
+    {
+      "id": "test_rag_normalization.TestRAGNormalization.test_list_of_quotes_is_supported",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.056
+    },
+    {
+      "id": "test_rag_normalization.TestRAGNormalization.test_old_string_remains_supported",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.054
+    },
+    {
+      "id": "test_rag_normalization.TestRAGNormalization.test_repeated_selected_id_merges_valid_quotes",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.048
+    },
+    {
+      "id": "test_ticket_switch.TestTicketSwitch.test_old_source_cannot_be_used_as_new_retrieval_evidence",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 6.751
+    },
+    {
+      "id": "test_ticket_switch.TestTicketSwitch.test_switch_uses_new_ticket_and_retrieval",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 6.672
+    },
+    {
+      "id": "test_mcp_protocol.TestMCPProtocol.test_invalid_argument_is_rejected_and_connection_survives",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 1618.511
+    },
+    {
+      "id": "test_mcp_protocol.TestMCPProtocol.test_missing_ticket_is_business_not_found",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 1480.573
+    },
+    {
+      "id": "test_mcp_protocol.TestMCPProtocol.test_protocol_result_matches_local_function",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 1541.614
+    },
+    {
+      "id": "test_mcp_protocol.TestMCPProtocol.test_tool_discovery",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 1476.317
+    },
+    {
+      "id": "test_mcp_agent.TestMCPAgent.test_cli_status_and_exit_do_not_call_model",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 1680.422
+    },
+    {
+      "id": "test_mcp_agent.TestMCPAgent.test_discovered_schema_only_exposes_allowed_tools",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 12.699
+    },
+    {
+      "id": "test_mcp_agent.TestMCPAgent.test_invalid_params_are_reported",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 13.767
+    },
+    {
+      "id": "test_mcp_agent.TestMCPAgent.test_mcp_connection_failure_is_not_silently_local",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 15.193
+    },
+    {
+      "id": "test_mcp_agent.TestMCPAgent.test_mcp_failure_preserves_pending_tool_node",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 468.227
+    },
+    {
+      "id": "test_mcp_agent.TestMCPAgent.test_resume_after_closing_mcp_and_database",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 3451.389
+    },
+    {
+      "id": "test_mcp_agent.TestMCPAgent.test_unlisted_tool_is_rejected_without_rpc",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 12.902
+    },
+    {
+      "id": "test_evidence_policy.TestEvidencePolicy.test_changed_revision_refreshes_checkpoint_before_answer",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 293.066
+    },
+    {
+      "id": "test_evidence_policy.TestEvidencePolicy.test_content_change_changes_revision_even_without_version_bump",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 16.532
+    },
+    {
+      "id": "test_evidence_policy.TestEvidencePolicy.test_failed_version_check_prevents_model_call",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 134.585
+    },
+    {
+      "id": "test_evidence_policy.TestEvidencePolicy.test_history_invalidation_preserves_user_input",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 12.694
+    },
+    {
+      "id": "test_evidence_policy.TestEvidencePolicy.test_new_turn_discards_stale_derived_answer",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 14.429
+    },
+    {
+      "id": "test_evidence_policy.TestEvidencePolicy.test_retired_all_documents_does_not_generate_old_advice",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 292.826
+    },
+    {
+      "id": "test_evidence_policy.TestEvidencePolicy.test_unchanged_revision_reuses_saved_results",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 219.972
+    },
+    {
+      "id": "test_plan_tasks.TestPlanTasks.test_duplicate_tasks_or_empty_steps_are_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 12.734
+    },
+    {
+      "id": "test_plan_tasks.TestPlanTasks.test_fake_evidence_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 12.371
+    },
+    {
+      "id": "test_plan_tasks.TestPlanTasks.test_plan_export_and_revision_change",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 37.468
+    },
+    {
+      "id": "test_plan_tasks.TestPlanTasks.test_uncited_task_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 12.855
+    },
+    {
+      "id": "test_plan_tasks.TestPlanTasks.test_valid_plan_is_draft_and_not_run",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 12.292
+    },
+    {
+      "id": "test_plan_tasks.TestPlanTasks.test_wrong_ticket_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 12.854
+    },
+    {
+      "id": "test_plan_command.TestPlanCommand.test_cli_routes_plan_command_without_starting_analysis",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 1560.702
+    },
+    {
+      "id": "test_plan_command.TestPlanCommand.test_command_normalization_and_invalid_format",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 12.634
+    },
+    {
+      "id": "test_plan_command.TestPlanCommand.test_failure_is_recorded_without_success_event",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 14.237
+    },
+    {
+      "id": "test_plan_command.TestPlanCommand.test_pending_analysis_blocks_new_plan",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 14.147
+    },
+    {
+      "id": "test_plan_command.TestPlanCommand.test_success_reuses_existing_clients_and_records_result",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 16.177
+    },
+    {
+      "id": "test_planning_flow.TestPlanningFlow.test_cancel_clears_pending_plan",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 378.129
+    },
+    {
+      "id": "test_planning_flow.TestPlanningFlow.test_export_retry_reuses_saved_draft_and_directory",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 494.158
+    },
+    {
+      "id": "test_planning_flow.TestPlanningFlow.test_four_steps_export_draft",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 359.649
+    },
+    {
+      "id": "test_planning_flow.TestPlanningFlow.test_missing_ticket_finishes_without_model_call",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 185.242
+    },
+    {
+      "id": "test_planning_flow.TestPlanningFlow.test_timeout_resumes_generation_without_retrieval",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 483.514
+    },
+    {
+      "id": "test_planning_flow.TestPlanningFlow.test_updated_evidence_discards_old_draft_and_regenerates",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 598.445
+    },
+    {
+      "id": "test_quality_report.TestQualityReport.test_failing_subtest_marks_parent_method_failed",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.824
+    },
+    {
+      "id": "test_quality_report.TestQualityReport.test_html_escapes_test_details",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.082
+    },
+    {
+      "id": "test_quality_report.TestQualityReport.test_missing_modules_cannot_be_reported_as_complete",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.03
+    },
+    {
+      "id": "test_quality_report.TestQualityReport.test_zero_tests_is_not_a_pass",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.025
+    },
+    {
+      "id": "test_agent_live_evaluation.TestEvaluationFlow.test_budget_stop_keeps_unrun_cases_visible",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 292.599
+    },
+    {
+      "id": "test_agent_live_evaluation.TestEvaluationFlow.test_failed_second_request_is_recorded_and_next_case_runs",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 479.154
+    },
+    {
+      "id": "test_agent_live_evaluation.TestEvaluationFlow.test_planning_graph_exports_reviewable_draft",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 363.182
+    },
+    {
+      "id": "test_agent_live_evaluation.TestEvaluationFlow.test_real_graph_with_mock_model_completes",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 347.833
+    },
+    {
+      "id": "test_agent_live_evaluation.TestLiveEvaluation.test_duplicate_ids_are_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 3.693
+    },
+    {
+      "id": "test_agent_live_evaluation.TestLiveEvaluation.test_error_is_not_a_failed_semantic_judgment",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.046
+    },
+    {
+      "id": "test_agent_live_evaluation.TestLiveEvaluation.test_failure_consumes_request_budget",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.964
+    },
+    {
+      "id": "test_agent_live_evaluation.TestLiveEvaluation.test_html_escapes_model_output",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.1
+    },
+    {
+      "id": "test_agent_live_evaluation.TestLiveEvaluation.test_partial_batch_is_not_reported_as_full_dataset",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.041
+    },
+    {
+      "id": "test_agent_live_evaluation.TestLiveEvaluation.test_recorded_fact_citation_badcase_is_flagged",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.598
+    },
+    {
+      "id": "test_agent_live_evaluation.TestLiveEvaluation.test_separate_fact_source_and_advice_citation_are_allowed",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.049
+    },
+    {
+      "id": "test_agent_live_evaluation.TestLiveEvaluation.test_source_direction_rejects_wrong_domain",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.047
+    },
+    {
+      "id": "test_agent_live_evaluation.TestLiveEvaluation.test_wrong_query_target_is_rejected",
+      "description": "",
+      "status": "passed",
+      "details": [],
+      "elapsed_ms": 0.035
+    }
+  ],
+  "live_model_evaluation": false
+}

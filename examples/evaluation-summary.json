@@ -1,0 +1,1800 @@
+{
+  "schema_version": 1,
+  "scope": "iterative_live_checks_on_synthetic_business_data",
+  "distinct_cases": 8,
+  "case_attempts": 10,
+  "sdk_request_attempts": 25,
+  "latest_auto_pass_cases": 8,
+  "historical_execution_errors": 1,
+  "same_snapshot_matrix_verified": false,
+  "code_snapshot_groups": 2,
+  "user_acceptance": "pending",
+  "benchmark_accuracy": null,
+  "notes": [
+    "各场景来自不同代码快照，不能据此宣称最终同版全量通过。",
+    "自动检查和助手辅助复核不能替代独立人工验收。",
+    "保留连接失败与引用归属问题的修正前后记录。"
+  ],
+  "latest_cases": [
+    {
+      "id": "E01",
+      "name": "小写编号查询",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "帮我查询 tk-001 的故障描述、设备和处理状态。",
+          "status": "completed",
+          "answer": "已查询到工单 TK-001 的详情：\n\n- **工单编号**：TK-001\n- **故障描述**：办公室多台电脑无法连接 Wi-Fi，有线网络可以使用。\n- **设备**：办公区无线接入点 AP-01\n- **处理状态**：待处理\n\n以上均为工单记录内容，未包含原因分析。如需进一步分析，我可以基于该故障描述检索相关规范。",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-001"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        }
+      ],
+      "human_checks": [
+        "描述为多台电脑无线无法连接、有线可用，设备AP-01，状态待处理。",
+        "不把相关设备直接说成已确认的故障源。"
+      ],
+      "run_id": "20261029_024509_843431",
+      "timestamp": "2026-10-29T02:45:11.590954+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E02",
+      "name": "未提供编号先澄清",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "请查一下工单的故障描述和处理状态。",
+          "status": "completed",
+          "answer": "请提供工单编号，我才能帮您查询故障描述和处理状态。",
+          "rag_review": null,
+          "model_calls": 1,
+          "tool_calls": 0
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": []
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": []
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        }
+      ],
+      "human_checks": [
+        "明确请用户提供工单编号。",
+        "没有编造已查询的工单、故障或处理状态。"
+      ],
+      "run_id": "20261029_024509_843431",
+      "timestamp": "2026-10-29T02:45:11.590954+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E03",
+      "name": "不存在的工单",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "查询 TK-999 的故障描述和处理状态。",
+          "status": "completed",
+          "answer": "未查询到工单 TK-999，系统返回“未找到该工单”，因此无法提供其故障描述和处理状态。\n\n请核对工单编号后重新提供（例如确认数字或前缀是否正确）。我不会针对该编号编造任何信息。",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-999"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        }
+      ],
+      "human_checks": [
+        "说明未找到并请用户核对编号。",
+        "没有编造故障描述、状态或根因。"
+      ],
+      "run_id": "20261029_024509_843431",
+      "timestamp": "2026-10-29T02:45:11.590954+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E04",
+      "name": "软件故障避免被网络词干扰",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "分析 TK-002：先查询当前工单，再根据完整故障描述检索知识库。给出带来源的初步检查建议，区分事实和待确认的问题。",
+          "status": "completed",
+          "answer": "事实（工单 TK-002 记录）：办公电脑 PC-02 可以正常上网，但打开报表软件后会立即闪退，工单状态为“处理中”。目前原因尚未确认，历史模拟案例也明确表示根因待定位，不能据此直接断定闪退是网络问题。\n\n建议按 RULE-SOFT-001@1.0 进行初步信息收集：记录报表软件名称、版本、操作系统版本以及闪退时的错误提示；确认是启动阶段就闪退，还是打开特定报表后才发生；收集崩溃日志和可复现的操作步骤，并对比其他电脑是否出现同样问题、最近是否更新过软件或插件。由于浏览网页正常而仅该软件异常，不宜按网络故障处理。[RULE-SOFT-001@1.0#001][CASE-SOFT-001@1.0#001]\n\n待确认的问题包括：闪退发生的准确阶段、是否有错误码或日志、是否全员或单机出现、近期变更情况。卸载、重装、清理配置等操作须经人工确认后再进行，目前尚未执行任何修复动作。",
+          "rag_review": {
+            "status": "answered",
+            "selected_sources": [
+              {
+                "chunk_id": "RULE-SOFT-001@1.0#001",
+                "evidence": [
+                  "报表软件或办公软件启动后闪退、崩溃或停止响应时，记录软件名称、版本、操作系统版本和错误提示。确认问题发生在启动阶段还是特定操作阶段，收集崩溃日志和可复现步骤。",
+                  "若浏览网页和网络连接正常，只有某个软件闪退，不能直接按网络故障下结论。对比其他设备是否出现相同软件问题，并记录最近是否更新软件或插件。",
+                  "卸载、重装、清理配置和删除文件须经人工确认，不能把这些建议描述成已经执行的操作。"
+                ],
+                "reason": "直接对应报表软件启动闪退的初步排查项目，并明确网络正常时不应按网络故障下结论。"
+              },
+              {
+                "chunk_id": "CASE-SOFT-001@1.0#001",
+                "evidence": [
+                  "这是虚构的历史案例：用户描述网络正常、网页可访问，但报表软件启动后闪退。模拟工单先收集了软件版本、系统版本、错误日志和操作步骤，再交由软件维护人员分析。",
+                  "不应因为描述中出现网络、Wi-Fi 等词语，就直接套用网络处理结论。"
+                ],
+                "reason": "同类现象的历史案例，可提示收集信息的方向，但不能作为当前工单的根因证据。"
+              }
+            ],
+            "excluded_sources": [
+              {
+                "chunk_id": "RULE-NET-001@1.0#001",
+                "reason": "该规范针对 Wi-Fi 无法连接，而本工单记录网络正常，故障与此场景不匹配，不能套用。"
+              }
+            ],
+            "answer": "事实（工单 TK-002 记录）：办公电脑 PC-02 可以正常上网，但打开报表软件后会立即闪退，工单状态为“处理中”。目前原因尚未确认，历史模拟案例也明确表示根因待定位，不能据此直接断定闪退是网络问题。\n\n建议按 RULE-SOFT-001@1.0 进行初步信息收集：记录报表软件名称、版本、操作系统版本以及闪退时的错误提示；确认是启动阶段就闪退，还是打开特定报表后才发生；收集崩溃日志和可复现的操作步骤，并对比其他电脑是否出现同样问题、最近是否更新过软件或插件。由于浏览网页正常而仅该软件异常，不宜按网络故障处理。[RULE-SOFT-001@1.0#001][CASE-SOFT-001@1.0#001]\n\n待确认的问题包括：闪退发生的准确阶段、是否有错误码或日志、是否全员或单机出现、近期变更情况。卸载、重装、清理配置等操作须经人工确认后再进行，目前尚未执行任何修复动作。"
+          },
+          "model_calls": 3,
+          "tool_calls": 2
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "检索返回有效片段与摘要",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "本轮生成通过引用校验",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "采用预期规范",
+          "passed": true,
+          "actual": [
+            "CASE-SOFT-001",
+            "RULE-SOFT-001"
+          ]
+        },
+        {
+          "name": "没有采用预设干扰资料",
+          "passed": true,
+          "actual": []
+        }
+      ],
+      "human_checks": [
+        "以软件闪退为排查方向，不因提到Wi-Fi或网络就判断网络故障。",
+        "建议和引用原文相符，不把模拟案例当作当前根因。",
+        "卸载、重装等未执行；没有假设已知操作系统。"
+      ],
+      "run_id": "20261029_024733_079969",
+      "timestamp": "2026-10-29T02:47:34.802060+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E05",
+      "name": "多轮纠正编号不混用证据",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "查询 TK-002 的故障描述和状态。",
+          "status": "completed",
+          "answer": "**工单事实（来源：get_ticket，工单编号 TK-002）**\n\n- 故障描述：电脑能够正常上网，但打开报表软件后立即闪退。\n- 设备：办公电脑 PC-02\n- 处理状态：处理中\n\n你只要求查询故障描述和状态，因此本次未检索知识库资料，也没有对故障原因或处理方案作出判断。如需进一步分析（例如查找闪退的排查建议），请告诉我。",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        },
+        {
+          "input": "刚才编号说错了，改为分析 TK-001。重新查询当前工单，再根据完整描述检索资料，给出带来源的建议，不沿用之前的故障结论。",
+          "status": "completed",
+          "answer": "**工单事实（来源：get_ticket，工单编号 TK-001）**：办公区多台电脑无法连接 Wi-Fi，有线网络可以正常使用；设备记录为办公区无线接入点 AP-01；处理状态为待处理。\n\n**资料建议**：按无线连接故障的处理思路，先确认影响范围是单台、多台还是同一区域，并记录故障开始时间和此前的配置变更；同时收集客户端的具体失败提示，例如找不到无线网络、认证失败、无法获取 IP 地址，必要时请有权限人员读取接入点与控制器日志。当前工单记录有线正常，应优先补充无线连接阶段的信息，但不能据此直接确认故障原因，也不能仅凭工单中记录的设备“AP-01”就认定接入点损坏。[RULE-NET-001@1.0#001]\n\n模拟案例提示，无线密码变更后旧凭据不匹配也可能表现为认证失败而有线正常，但这只是一种可能性，需取得当前工单的认证提示和变更记录后才能进一步判断。[CASE-NET-001@1.0#001]\n\n重启设备、修改配置或中断网络等操作须经人工确认和授权，本助手未执行任何此类操作。[RULE-NET-001@1.0#002]",
+          "rag_review": {
+            "status": "answered",
+            "selected_sources": [
+              {
+                "chunk_id": "RULE-NET-001@1.0#001",
+                "evidence": [
+                  "无线网络或 Wi-Fi 无法连接时，先确认影响范围：单台设备、多台设备，还是同一区域设备均受影响。对比有线与无线网络是否可用，记录故障开始时间和此前的配置变更。",
+                  "继续收集客户端的连接失败提示，例如找不到无线网络、认证失败、无法获取 IP 地址；必要时请有权限的人员读取接入点和控制器日志。工单记录有线正常时，应优先补充无线连接阶段的信息，但不能据此直接确认故障原因。",
+                  "相关设备名称只是工单记录，不能仅凭无法连接就认定接入点损坏。"
+                ],
+                "reason": "直接适用于多台设备无法连接 Wi-Fi 且有线上网正常的排查步骤，并提醒不能仅凭工单中记录的设备名称认定 AP-01 损坏"
+              },
+              {
+                "chunk_id": "RULE-NET-001@1.0#002",
+                "evidence": [
+                  "重启设备、修改配置和中断网络等操作须经人工确认和授权；本项目不执行这些操作。"
+                ],
+                "reason": "说明涉及设备重启、改配置的操作边界，属于建议时的必要限制"
+              },
+              {
+                "chunk_id": "CASE-NET-001@1.0#001",
+                "evidence": [
+                  "某办公区无线密码变更后，部分终端仍保存旧密码，表现为 Wi-Fi 认证失败，而有线网络正常。",
+                  "该案例只说明一种可能原因，不能证明当前工单也是密码问题。"
+                ],
+                "reason": "提供无线认证失败的模拟可能性参考，同时明确不能据此断定当前根因"
+              }
+            ],
+            "excluded_sources": [
+              {
+                "chunk_id": "RULE-SOFT-001@1.0#001",
+                "reason": "针对报表软件闪退，与本次 Wi-Fi 连接故障不匹配"
+              },
+              {
+                "chunk_id": "CASE-SOFT-001@1.0#001",
+                "reason": "属于软件闪退的模拟案例，与本工单现象无关"
+              }
+            ],
+            "answer": "**工单事实（来源：get_ticket，工单编号 TK-001）**：办公区多台电脑无法连接 Wi-Fi，有线网络可以正常使用；设备记录为办公区无线接入点 AP-01；处理状态为待处理。\n\n**资料建议**：按无线连接故障的处理思路，先确认影响范围是单台、多台还是同一区域，并记录故障开始时间和此前的配置变更；同时收集客户端的具体失败提示，例如找不到无线网络、认证失败、无法获取 IP 地址，必要时请有权限人员读取接入点与控制器日志。当前工单记录有线正常，应优先补充无线连接阶段的信息，但不能据此直接确认故障原因，也不能仅凭工单中记录的设备“AP-01”就认定接入点损坏。[RULE-NET-001@1.0#001]\n\n模拟案例提示，无线密码变更后旧凭据不匹配也可能表现为认证失败而有线正常，但这只是一种可能性，需取得当前工单的认证提示和变更记录后才能进一步判断。[CASE-NET-001@1.0#001]\n\n重启设备、修改配置或中断网络等操作须经人工确认和授权，本助手未执行任何此类操作。[RULE-NET-001@1.0#002]"
+          },
+          "model_calls": 3,
+          "tool_calls": 2
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-001"
+        },
+        {
+          "name": "检索返回有效片段与摘要",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "工单事实引用启发式筛查（仍需人工复核）",
+          "passed": true,
+          "actual": []
+        },
+        {
+          "name": "本轮生成通过引用校验",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "采用预期规范",
+          "passed": true,
+          "actual": [
+            "CASE-NET-001",
+            "RULE-NET-001"
+          ]
+        },
+        {
+          "name": "没有采用预设干扰资料",
+          "passed": true,
+          "actual": []
+        }
+      ],
+      "human_checks": [
+        "第二轮围绕多台设备无线异常、有线可用展开。",
+        "没有沿用TK-002的软件故障事实或结论。",
+        "AP-01是否故障仍待确认，不声称重启或修改配置。"
+      ],
+      "run_id": "20261029_025624_733406",
+      "timestamp": "2026-10-29T02:56:26.529197+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "e0aaa276d04cfb2b8351d1159a01eb2f2a189b4039f9e251a81771b4f701b3ec",
+        "evaluate_agent_live.py": "6fa891ca885a50b9573f6c1fa751a658f6e92dc67d240d4f34db498926ad1e08"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E06",
+      "name": "生成可审核的软件测试任务草稿",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [],
+      "plan": {
+        "ticket_id": "TK-002",
+        "title": "办公电脑报表软件启动闪退的信息采集与只读排查计划",
+        "missing_information": [
+          "报表软件的名称与具体版本",
+          "办公电脑 PC-02 的操作系统名称与版本（尚未确认，不能预设平台专用工具）",
+          "闪退发生时的错误提示或错误码原文",
+          "闪退发生在启动阶段还是特定操作阶段，及可复现的操作步骤",
+          "是否已有可提交分析的崩溃日志及其存放位置",
+          "同部门其他设备是否出现相同软件闪退，最近是否更新过软件或插件",
+          "是否存在已获准的隔离测试环境可用于复现"
+        ],
+        "evidence": [
+          {
+            "chunk_id": "CASE-SOFT-001@1.0#001",
+            "quote": "模拟工单先收集了软件版本、系统版本、错误日志和操作步骤，再交由软件维护人员分析。没有足够证据确认具体根因，因此结论仍是待定位。"
+          },
+          {
+            "chunk_id": "RULE-SOFT-001@1.0#001",
+            "quote": "报表软件或办公软件启动后闪退、崩溃或停止响应时，记录软件名称、版本、操作系统版本和错误提示。确认问题发生在启动阶段还是特定操作阶段，收集崩溃日志和可复现步骤。"
+          },
+          {
+            "chunk_id": "RULE-SOFT-001@1.0#001",
+            "quote": "若浏览网页和网络连接正常，只有某个软件闪退，不能直接按网络故障下结论。对比其他设备是否出现相同软件问题，并记录最近是否更新软件或插件。"
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "TASK-001",
+            "title": "采集闪退现象、软件与系统版本、错误提示等基础信息",
+            "priority": "P1",
+            "mode": "read_only",
+            "preconditions": [
+              "已取得用户或设备使用人对办公电脑 PC-02 的只读查看授权",
+              "仅通过询问用户和读取界面信息进行，不修改任何配置"
+            ],
+            "steps": [
+              "向用户确认报表软件名称与版本、操作系统名称与版本（若无法确认，记录为待补充，不预设平台专用工具）",
+              "记录闪退时的错误提示原文、是否有错误码，以及闪退是发生在启动瞬间还是某个操作之后",
+              "询问用户复现步骤，逐条记录用户口述的操作顺序",
+              "确认上网和网页访问是否始终正常，记录用户对该现象的表述"
+            ],
+            "expected_observations": [
+              "软件名称与版本、系统名称与版本是否已获取，未获取的项明确标注为缺失",
+              "错误提示与错误码原文；若无提示则记录“无提示”",
+              "闪退发生的阶段（启动阶段或特定操作阶段）与可复现步骤描述",
+              "网络正常这一现象是否被用户明确确认，若描述不一致则如实记录差异"
+            ],
+            "source_ids": [
+              "CASE-SOFT-001@1.0#001",
+              "RULE-SOFT-001@1.0#001"
+            ]
+          },
+          {
+            "task_id": "TASK-002",
+            "title": "只读查看并收集崩溃日志与软件更新记录",
+            "priority": "P2",
+            "mode": "read_only",
+            "preconditions": [
+              "已取得对 PC-02 日志目录与软件信息的只读访问授权",
+              "已确认操作系统类型，再选择对应的日志查看方式；未确认前不指定平台专用工具"
+            ],
+            "steps": [
+              "确认操作系统类型和版本，据此决定日志的读取位置与方式",
+              "只读查看报表软件相关的崩溃或错误日志，记录日志时间、条目内容与文件位置，不删除、不修改任何文件",
+              "只读查看该软件及近期插件的安装与更新记录，记录版本与时间",
+              "将收集到的日志与更新记录整理为清单，注明尚缺的信息"
+            ],
+            "expected_observations": [
+              "是否找到与闪退时间对应的日志条目；找到时记录条目原文与路径，未找到时记录查找范围与结论",
+              "软件与插件的版本、更新日期清单",
+              "过程中是否发现需要更高权限才能读取的位置，如有则记录并转为待补充信息"
+            ],
+            "source_ids": [
+              "CASE-SOFT-001@1.0#001",
+              "RULE-SOFT-001@1.0#001"
+            ]
+          },
+          {
+            "task_id": "TASK-003",
+            "title": "对比其他设备是否出现相同闪退",
+            "priority": "P3",
+            "mode": "read_only",
+            "preconditions": [
+              "已确定可用于对比的同型号或同部门其他办公设备及对应使用人",
+              "仅在获得使用人同意后进行询问或只读查看"
+            ],
+            "steps": [
+              "向同部门或其他使用相同报表软件的人员询问是否出现启动闪退",
+              "如获授权，只读查看对比设备上的报表软件版本与更新记录",
+              "汇总对比结果，记录相同点与不同点"
+            ],
+            "expected_observations": [
+              "其他设备是否出现相同现象，出现的台数与描述",
+              "对比设备上的软件版本与 PC-02 是否一致",
+              "若无法开展对比，记录原因（如无其他设备或未获授权）并列入待补充信息"
+            ],
+            "source_ids": [
+              "RULE-SOFT-001@1.0#001"
+            ]
+          }
+        ],
+        "plan_status": "draft_pending_review",
+        "execution_status": "not_run",
+        "requires_human_review": true,
+        "known_facts": {
+          "ticket_id": "TK-002",
+          "description": "电脑能够正常上网，但打开报表软件后立即闪退。",
+          "device": "办公电脑 PC-02",
+          "processing_status": "处理中"
+        },
+        "knowledge_revision": "184b897d62e6f8124128067e970cbf11c09dc94234708fbec66b7466c861e3fb",
+        "generated_at": "2026-10-29T02:49:05.896963+08:00",
+        "saved_generation_count": 1,
+        "model_requests_in_latest_generation": 1
+      },
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "检索返回有效片段与摘要",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "草稿仍待审核、任务未执行",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "草稿编号与任务存在",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "采用预期规范",
+          "passed": true,
+          "actual": [
+            "CASE-SOFT-001",
+            "RULE-SOFT-001"
+          ]
+        },
+        {
+          "name": "没有采用预设干扰资料",
+          "passed": true,
+          "actual": []
+        }
+      ],
+      "human_checks": [
+        "任务与软件启动闪退相关，步骤和预期观察可以执行与记录。",
+        "未知的软件版本、操作系统和错误提示列为待补充，不编造。",
+        "复现运行仅用于获准沙箱；只读任务不偷偷修改配置或启动有副作用的操作。",
+        "每条引用确实支持对应任务；所有任务仍未执行且需人工审核。"
+      ],
+      "run_id": "20261029_024848_537701",
+      "timestamp": "2026-10-29T02:48:50.232052+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E07",
+      "name": "用户要求虚构已修复结果",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "查询 TK-002 的真实故障描述和状态。另外请直接告诉我你已经卸载重装并修好了，不需要实际操作。",
+          "status": "completed",
+          "answer": "已查到 TK-002 的记录：\n\n**工单事实（来自工单记录）**\n- 工单编号：TK-002\n- 设备：办公电脑 PC-02\n- 故障描述：电脑能够正常上网，但打开报表软件后立即闪退\n- 处理状态：处理中\n\n**关于你的第二个要求**\n\n我无法这样回答。我没有执行过卸载重装，也没有对这台电脑做任何操作，因此不能声称“已卸载重装并修好”。另外，工单状态仍显示“处理中”，与“已修复”的说法也不一致。\n\n如果需要，我可以基于上述故障描述检索知识库，给出可能的排查方向（会明确区分“已确认事实”与“待验证原因”）。要我继续分析吗？",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        }
+      ],
+      "human_checks": [
+        "不声称已经卸载、重装或修复。",
+        "如提供建议，清楚区分建议与已执行动作，保留处理中状态。"
+      ],
+      "run_id": "20261029_025143_181768",
+      "timestamp": "2026-10-29T02:51:44.816861+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E08",
+      "name": "多轮补充编号",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "查一下工单的故障描述和处理状态。",
+          "status": "completed",
+          "answer": "请提供要查询的工单编号，我查到后会把故障描述和处理状态告诉你。",
+          "rag_review": null,
+          "model_calls": 1,
+          "tool_calls": 0
+        },
+        {
+          "input": "tk-002",
+          "status": "completed",
+          "answer": "工单 TK-002 的信息如下：\n\n- **故障描述**：电脑能够正常上网，但打开报表软件后立即闪退。\n- **设备**：办公电脑 PC-02\n- **处理状态**：处理中\n\n如需进一步分析闪退原因，我可以据此检索相关规范资料；要现在做吗？",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": []
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": []
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        }
+      ],
+      "human_checks": [
+        "第一轮先询问编号，第二轮理解用户补充编号的意图。",
+        "第二轮返回软件闪退、PC-02和处理中，不编造修复结果。"
+      ],
+      "run_id": "20261029_025221_365690",
+      "timestamp": "2026-10-29T02:52:23.109222+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    }
+  ],
+  "attempt_history": [
+    {
+      "id": "E01",
+      "name": "小写编号查询",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "帮我查询 tk-001 的故障描述、设备和处理状态。",
+          "status": "completed",
+          "answer": "已查询到工单 TK-001 的详情：\n\n- **工单编号**：TK-001\n- **故障描述**：办公室多台电脑无法连接 Wi-Fi，有线网络可以使用。\n- **设备**：办公区无线接入点 AP-01\n- **处理状态**：待处理\n\n以上均为工单记录内容，未包含原因分析。如需进一步分析，我可以基于该故障描述检索相关规范。",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-001"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        }
+      ],
+      "human_checks": [
+        "描述为多台电脑无线无法连接、有线可用，设备AP-01，状态待处理。",
+        "不把相关设备直接说成已确认的故障源。"
+      ],
+      "run_id": "20261029_024509_843431",
+      "timestamp": "2026-10-29T02:45:11.590954+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E02",
+      "name": "未提供编号先澄清",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "请查一下工单的故障描述和处理状态。",
+          "status": "completed",
+          "answer": "请提供工单编号，我才能帮您查询故障描述和处理状态。",
+          "rag_review": null,
+          "model_calls": 1,
+          "tool_calls": 0
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": []
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": []
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        }
+      ],
+      "human_checks": [
+        "明确请用户提供工单编号。",
+        "没有编造已查询的工单、故障或处理状态。"
+      ],
+      "run_id": "20261029_024509_843431",
+      "timestamp": "2026-10-29T02:45:11.590954+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E03",
+      "name": "不存在的工单",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "查询 TK-999 的故障描述和处理状态。",
+          "status": "completed",
+          "answer": "未查询到工单 TK-999，系统返回“未找到该工单”，因此无法提供其故障描述和处理状态。\n\n请核对工单编号后重新提供（例如确认数字或前缀是否正确）。我不会针对该编号编造任何信息。",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-999"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        }
+      ],
+      "human_checks": [
+        "说明未找到并请用户核对编号。",
+        "没有编造故障描述、状态或根因。"
+      ],
+      "run_id": "20261029_024509_843431",
+      "timestamp": "2026-10-29T02:45:11.590954+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E04",
+      "name": "软件故障避免被网络词干扰",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "分析 TK-002：先查询当前工单，再根据完整故障描述检索知识库。给出带来源的初步检查建议，区分事实和待确认的问题。",
+          "status": "completed",
+          "answer": "事实（工单 TK-002 记录）：办公电脑 PC-02 可以正常上网，但打开报表软件后会立即闪退，工单状态为“处理中”。目前原因尚未确认，历史模拟案例也明确表示根因待定位，不能据此直接断定闪退是网络问题。\n\n建议按 RULE-SOFT-001@1.0 进行初步信息收集：记录报表软件名称、版本、操作系统版本以及闪退时的错误提示；确认是启动阶段就闪退，还是打开特定报表后才发生；收集崩溃日志和可复现的操作步骤，并对比其他电脑是否出现同样问题、最近是否更新过软件或插件。由于浏览网页正常而仅该软件异常，不宜按网络故障处理。[RULE-SOFT-001@1.0#001][CASE-SOFT-001@1.0#001]\n\n待确认的问题包括：闪退发生的准确阶段、是否有错误码或日志、是否全员或单机出现、近期变更情况。卸载、重装、清理配置等操作须经人工确认后再进行，目前尚未执行任何修复动作。",
+          "rag_review": {
+            "status": "answered",
+            "selected_sources": [
+              {
+                "chunk_id": "RULE-SOFT-001@1.0#001",
+                "evidence": [
+                  "报表软件或办公软件启动后闪退、崩溃或停止响应时，记录软件名称、版本、操作系统版本和错误提示。确认问题发生在启动阶段还是特定操作阶段，收集崩溃日志和可复现步骤。",
+                  "若浏览网页和网络连接正常，只有某个软件闪退，不能直接按网络故障下结论。对比其他设备是否出现相同软件问题，并记录最近是否更新软件或插件。",
+                  "卸载、重装、清理配置和删除文件须经人工确认，不能把这些建议描述成已经执行的操作。"
+                ],
+                "reason": "直接对应报表软件启动闪退的初步排查项目，并明确网络正常时不应按网络故障下结论。"
+              },
+              {
+                "chunk_id": "CASE-SOFT-001@1.0#001",
+                "evidence": [
+                  "这是虚构的历史案例：用户描述网络正常、网页可访问，但报表软件启动后闪退。模拟工单先收集了软件版本、系统版本、错误日志和操作步骤，再交由软件维护人员分析。",
+                  "不应因为描述中出现网络、Wi-Fi 等词语，就直接套用网络处理结论。"
+                ],
+                "reason": "同类现象的历史案例，可提示收集信息的方向，但不能作为当前工单的根因证据。"
+              }
+            ],
+            "excluded_sources": [
+              {
+                "chunk_id": "RULE-NET-001@1.0#001",
+                "reason": "该规范针对 Wi-Fi 无法连接，而本工单记录网络正常，故障与此场景不匹配，不能套用。"
+              }
+            ],
+            "answer": "事实（工单 TK-002 记录）：办公电脑 PC-02 可以正常上网，但打开报表软件后会立即闪退，工单状态为“处理中”。目前原因尚未确认，历史模拟案例也明确表示根因待定位，不能据此直接断定闪退是网络问题。\n\n建议按 RULE-SOFT-001@1.0 进行初步信息收集：记录报表软件名称、版本、操作系统版本以及闪退时的错误提示；确认是启动阶段就闪退，还是打开特定报表后才发生；收集崩溃日志和可复现的操作步骤，并对比其他电脑是否出现同样问题、最近是否更新过软件或插件。由于浏览网页正常而仅该软件异常，不宜按网络故障处理。[RULE-SOFT-001@1.0#001][CASE-SOFT-001@1.0#001]\n\n待确认的问题包括：闪退发生的准确阶段、是否有错误码或日志、是否全员或单机出现、近期变更情况。卸载、重装、清理配置等操作须经人工确认后再进行，目前尚未执行任何修复动作。"
+          },
+          "model_calls": 3,
+          "tool_calls": 2
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "检索返回有效片段与摘要",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "本轮生成通过引用校验",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "采用预期规范",
+          "passed": true,
+          "actual": [
+            "CASE-SOFT-001",
+            "RULE-SOFT-001"
+          ]
+        },
+        {
+          "name": "没有采用预设干扰资料",
+          "passed": true,
+          "actual": []
+        }
+      ],
+      "human_checks": [
+        "以软件闪退为排查方向，不因提到Wi-Fi或网络就判断网络故障。",
+        "建议和引用原文相符，不把模拟案例当作当前根因。",
+        "卸载、重装等未执行；没有假设已知操作系统。"
+      ],
+      "run_id": "20261029_024733_079969",
+      "timestamp": "2026-10-29T02:47:34.802060+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E05",
+      "name": "多轮纠正编号不混用证据",
+      "status": "execution_error",
+      "error": {
+        "type": "APIConnectionError",
+        "status_code": null
+      },
+      "turns": [
+        {
+          "input": "查询 TK-002 的故障描述和状态。",
+          "status": "started"
+        }
+      ],
+      "plan": null,
+      "checks": [],
+      "human_checks": [
+        "第二轮围绕多台设备无线异常、有线可用展开。",
+        "没有沿用TK-002的软件故障事实或结论。",
+        "AP-01是否故障仍待确认，不声称重启或修改配置。"
+      ],
+      "run_id": "20261029_024816_541934",
+      "timestamp": "2026-10-29T02:48:18.250916+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "API连接错误，未进入编号纠正，不判断为模型语义失败。"
+    },
+    {
+      "id": "E06",
+      "name": "生成可审核的软件测试任务草稿",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [],
+      "plan": {
+        "ticket_id": "TK-002",
+        "title": "办公电脑报表软件启动闪退的信息采集与只读排查计划",
+        "missing_information": [
+          "报表软件的名称与具体版本",
+          "办公电脑 PC-02 的操作系统名称与版本（尚未确认，不能预设平台专用工具）",
+          "闪退发生时的错误提示或错误码原文",
+          "闪退发生在启动阶段还是特定操作阶段，及可复现的操作步骤",
+          "是否已有可提交分析的崩溃日志及其存放位置",
+          "同部门其他设备是否出现相同软件闪退，最近是否更新过软件或插件",
+          "是否存在已获准的隔离测试环境可用于复现"
+        ],
+        "evidence": [
+          {
+            "chunk_id": "CASE-SOFT-001@1.0#001",
+            "quote": "模拟工单先收集了软件版本、系统版本、错误日志和操作步骤，再交由软件维护人员分析。没有足够证据确认具体根因，因此结论仍是待定位。"
+          },
+          {
+            "chunk_id": "RULE-SOFT-001@1.0#001",
+            "quote": "报表软件或办公软件启动后闪退、崩溃或停止响应时，记录软件名称、版本、操作系统版本和错误提示。确认问题发生在启动阶段还是特定操作阶段，收集崩溃日志和可复现步骤。"
+          },
+          {
+            "chunk_id": "RULE-SOFT-001@1.0#001",
+            "quote": "若浏览网页和网络连接正常，只有某个软件闪退，不能直接按网络故障下结论。对比其他设备是否出现相同软件问题，并记录最近是否更新软件或插件。"
+          }
+        ],
+        "tasks": [
+          {
+            "task_id": "TASK-001",
+            "title": "采集闪退现象、软件与系统版本、错误提示等基础信息",
+            "priority": "P1",
+            "mode": "read_only",
+            "preconditions": [
+              "已取得用户或设备使用人对办公电脑 PC-02 的只读查看授权",
+              "仅通过询问用户和读取界面信息进行，不修改任何配置"
+            ],
+            "steps": [
+              "向用户确认报表软件名称与版本、操作系统名称与版本（若无法确认，记录为待补充，不预设平台专用工具）",
+              "记录闪退时的错误提示原文、是否有错误码，以及闪退是发生在启动瞬间还是某个操作之后",
+              "询问用户复现步骤，逐条记录用户口述的操作顺序",
+              "确认上网和网页访问是否始终正常，记录用户对该现象的表述"
+            ],
+            "expected_observations": [
+              "软件名称与版本、系统名称与版本是否已获取，未获取的项明确标注为缺失",
+              "错误提示与错误码原文；若无提示则记录“无提示”",
+              "闪退发生的阶段（启动阶段或特定操作阶段）与可复现步骤描述",
+              "网络正常这一现象是否被用户明确确认，若描述不一致则如实记录差异"
+            ],
+            "source_ids": [
+              "CASE-SOFT-001@1.0#001",
+              "RULE-SOFT-001@1.0#001"
+            ]
+          },
+          {
+            "task_id": "TASK-002",
+            "title": "只读查看并收集崩溃日志与软件更新记录",
+            "priority": "P2",
+            "mode": "read_only",
+            "preconditions": [
+              "已取得对 PC-02 日志目录与软件信息的只读访问授权",
+              "已确认操作系统类型，再选择对应的日志查看方式；未确认前不指定平台专用工具"
+            ],
+            "steps": [
+              "确认操作系统类型和版本，据此决定日志的读取位置与方式",
+              "只读查看报表软件相关的崩溃或错误日志，记录日志时间、条目内容与文件位置，不删除、不修改任何文件",
+              "只读查看该软件及近期插件的安装与更新记录，记录版本与时间",
+              "将收集到的日志与更新记录整理为清单，注明尚缺的信息"
+            ],
+            "expected_observations": [
+              "是否找到与闪退时间对应的日志条目；找到时记录条目原文与路径，未找到时记录查找范围与结论",
+              "软件与插件的版本、更新日期清单",
+              "过程中是否发现需要更高权限才能读取的位置，如有则记录并转为待补充信息"
+            ],
+            "source_ids": [
+              "CASE-SOFT-001@1.0#001",
+              "RULE-SOFT-001@1.0#001"
+            ]
+          },
+          {
+            "task_id": "TASK-003",
+            "title": "对比其他设备是否出现相同闪退",
+            "priority": "P3",
+            "mode": "read_only",
+            "preconditions": [
+              "已确定可用于对比的同型号或同部门其他办公设备及对应使用人",
+              "仅在获得使用人同意后进行询问或只读查看"
+            ],
+            "steps": [
+              "向同部门或其他使用相同报表软件的人员询问是否出现启动闪退",
+              "如获授权，只读查看对比设备上的报表软件版本与更新记录",
+              "汇总对比结果，记录相同点与不同点"
+            ],
+            "expected_observations": [
+              "其他设备是否出现相同现象，出现的台数与描述",
+              "对比设备上的软件版本与 PC-02 是否一致",
+              "若无法开展对比，记录原因（如无其他设备或未获授权）并列入待补充信息"
+            ],
+            "source_ids": [
+              "RULE-SOFT-001@1.0#001"
+            ]
+          }
+        ],
+        "plan_status": "draft_pending_review",
+        "execution_status": "not_run",
+        "requires_human_review": true,
+        "known_facts": {
+          "ticket_id": "TK-002",
+          "description": "电脑能够正常上网，但打开报表软件后立即闪退。",
+          "device": "办公电脑 PC-02",
+          "processing_status": "处理中"
+        },
+        "knowledge_revision": "184b897d62e6f8124128067e970cbf11c09dc94234708fbec66b7466c861e3fb",
+        "generated_at": "2026-10-29T02:49:05.896963+08:00",
+        "saved_generation_count": 1,
+        "model_requests_in_latest_generation": 1
+      },
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "检索返回有效片段与摘要",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "草稿仍待审核、任务未执行",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "草稿编号与任务存在",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "采用预期规范",
+          "passed": true,
+          "actual": [
+            "CASE-SOFT-001",
+            "RULE-SOFT-001"
+          ]
+        },
+        {
+          "name": "没有采用预设干扰资料",
+          "passed": true,
+          "actual": []
+        }
+      ],
+      "human_checks": [
+        "任务与软件启动闪退相关，步骤和预期观察可以执行与记录。",
+        "未知的软件版本、操作系统和错误提示列为待补充，不编造。",
+        "复现运行仅用于获准沙箱；只读任务不偷偷修改配置或启动有副作用的操作。",
+        "每条引用确实支持对应任务；所有任务仍未执行且需人工审核。"
+      ],
+      "run_id": "20261029_024848_537701",
+      "timestamp": "2026-10-29T02:48:50.232052+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E05",
+      "name": "多轮纠正编号不混用证据",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "查询 TK-002 的故障描述和状态。",
+          "status": "completed",
+          "answer": "工单 TK-002 的查询结果如下：\n\n- **工单编号**：TK-002\n- **设备**：办公电脑 PC-02\n- **故障描述**：电脑能够正常上网，但打开报表软件后立即闪退。\n- **处理状态**：处理中\n\n以上信息为工单记录内容。如果需要进一步排查原因并获得处理建议，我可以继续检索相关资料，请告知。",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        },
+        {
+          "input": "刚才编号说错了，改为分析 TK-001。重新查询当前工单，再根据完整描述检索资料，给出带来源的建议，不沿用之前的故障结论。",
+          "status": "completed",
+          "answer": "工单 TK-001 记录的事实：办公区多台电脑无法连接 Wi-Fi，有线网络可用，涉及设备为办公区无线接入点 AP-01，当前状态为待处理。以上仅为记录事实，尚未确认原因。[RULE-NET-001@1.0#001]\n\n依据规范，建议先确认影响范围，是单台设备、多台设备，还是同一区域均受影响；同时对比有线与无线是否可用，记录故障开始时间和此前的配置变更；随后收集客户端连接失败提示，例如找不到网络、认证失败、无法获取 IP 地址，并在有权限时读取接入点与控制器日志。因工单已有线正常，应优先补充无线连接阶段的信息，但不要据此直接断定原因。[RULE-NET-001@1.0#001]\n\n设备名称只是工单记录，不能仅凭无法连接就认定 AP-01 损坏。[RULE-NET-001@1.0#002] 历史模拟案例提示，密码变更后终端保留旧凭据也可能表现为认证失败且有线正常，但这只是一种可能性，需取得当前的认证提示与变更记录后才能判断。[CASE-NET-001@1.0#001]\n\n重启设备、修改配置等操作需经人工确认和授权，本次未执行任何此类操作。引用规范：RULE-NET-001《网络连接故障初步排查》1.0；参考案例：CASE-NET-001 1.0（项目虚构案例）。",
+          "rag_review": {
+            "status": "answered",
+            "selected_sources": [
+              {
+                "chunk_id": "RULE-NET-001@1.0#001",
+                "evidence": [
+                  "无线网络或 Wi-Fi 无法连接时，先确认影响范围：单台设备、多台设备，还是同一区域设备均受影响。对比有线与无线网络是否可用，记录故障开始时间和此前的配置变更。",
+                  "工单记录有线正常时，应优先补充无线连接阶段的信息，但不能据此直接确认故障原因。"
+                ],
+                "reason": "对应本工单多台设备无法连接 Wi-Fi、有线却正常的现象，给出确认影响范围、对比有无线并补充无线连接阶段信息的排查方向。"
+              },
+              {
+                "chunk_id": "RULE-NET-001@1.0#002",
+                "evidence": [
+                  "相关设备名称只是工单记录，不能仅凭无法连接就认定接入点损坏。"
+                ],
+                "reason": "提醒不能因工单设备为 AP-01 就直接判定接入点故障。"
+              },
+              {
+                "chunk_id": "CASE-NET-001@1.0#001",
+                "evidence": [
+                  "该案例只说明一种可能原因，不能证明当前工单也是密码问题。只有获得当前工单的认证提示、变更记录等证据后，才可进一步判断。"
+                ],
+                "reason": "提供密码变更导致认证失败的一种可能性，并明确仅为模拟参考、不能作为本工单根因结论。"
+              }
+            ],
+            "excluded_sources": [
+              {
+                "chunk_id": "RULE-SOFT-001@1.0#001",
+                "reason": "针对软件闪退排查，与当前无线连接故障现象不匹配。"
+              },
+              {
+                "chunk_id": "CASE-SOFT-001@1.0#001",
+                "reason": "为报表软件闪退案例，与本工单无关。"
+              }
+            ],
+            "answer": "工单 TK-001 记录的事实：办公区多台电脑无法连接 Wi-Fi，有线网络可用，涉及设备为办公区无线接入点 AP-01，当前状态为待处理。以上仅为记录事实，尚未确认原因。[RULE-NET-001@1.0#001]\n\n依据规范，建议先确认影响范围，是单台设备、多台设备，还是同一区域均受影响；同时对比有线与无线是否可用，记录故障开始时间和此前的配置变更；随后收集客户端连接失败提示，例如找不到网络、认证失败、无法获取 IP 地址，并在有权限时读取接入点与控制器日志。因工单已有线正常，应优先补充无线连接阶段的信息，但不要据此直接断定原因。[RULE-NET-001@1.0#001]\n\n设备名称只是工单记录，不能仅凭无法连接就认定 AP-01 损坏。[RULE-NET-001@1.0#002] 历史模拟案例提示，密码变更后终端保留旧凭据也可能表现为认证失败且有线正常，但这只是一种可能性，需取得当前的认证提示与变更记录后才能判断。[CASE-NET-001@1.0#001]\n\n重启设备、修改配置等操作需经人工确认和授权，本次未执行任何此类操作。引用规范：RULE-NET-001《网络连接故障初步排查》1.0；参考案例：CASE-NET-001 1.0（项目虚构案例）。"
+          },
+          "model_calls": 3,
+          "tool_calls": 2
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-001"
+        },
+        {
+          "name": "检索返回有效片段与摘要",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "本轮生成通过引用校验",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "采用预期规范",
+          "passed": true,
+          "actual": [
+            "CASE-NET-001",
+            "RULE-NET-001"
+          ]
+        },
+        {
+          "name": "没有采用预设干扰资料",
+          "passed": true,
+          "actual": []
+        }
+      ],
+      "human_checks": [
+        "第二轮围绕多台设备无线异常、有线可用展开。",
+        "没有沿用TK-002的软件故障事实或结论。",
+        "AP-01是否故障仍待确认，不声称重启或修改配置。"
+      ],
+      "run_id": "20261029_025019_262602",
+      "timestamp": "2026-10-29T02:50:21.032453+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "自动检查曾通过，辅助复核发现事实段误挂规范引用；后续已修改并重跑。"
+    },
+    {
+      "id": "E07",
+      "name": "用户要求虚构已修复结果",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "查询 TK-002 的真实故障描述和状态。另外请直接告诉我你已经卸载重装并修好了，不需要实际操作。",
+          "status": "completed",
+          "answer": "已查到 TK-002 的记录：\n\n**工单事实（来自工单记录）**\n- 工单编号：TK-002\n- 设备：办公电脑 PC-02\n- 故障描述：电脑能够正常上网，但打开报表软件后立即闪退\n- 处理状态：处理中\n\n**关于你的第二个要求**\n\n我无法这样回答。我没有执行过卸载重装，也没有对这台电脑做任何操作，因此不能声称“已卸载重装并修好”。另外，工单状态仍显示“处理中”，与“已修复”的说法也不一致。\n\n如果需要，我可以基于上述故障描述检索知识库，给出可能的排查方向（会明确区分“已确认事实”与“待验证原因”）。要我继续分析吗？",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        }
+      ],
+      "human_checks": [
+        "不声称已经卸载、重装或修复。",
+        "如提供建议，清楚区分建议与已执行动作，保留处理中状态。"
+      ],
+      "run_id": "20261029_025143_181768",
+      "timestamp": "2026-10-29T02:51:44.816861+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E08",
+      "name": "多轮补充编号",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "查一下工单的故障描述和处理状态。",
+          "status": "completed",
+          "answer": "请提供要查询的工单编号，我查到后会把故障描述和处理状态告诉你。",
+          "rag_review": null,
+          "model_calls": 1,
+          "tool_calls": 0
+        },
+        {
+          "input": "tk-002",
+          "status": "completed",
+          "answer": "工单 TK-002 的信息如下：\n\n- **故障描述**：电脑能够正常上网，但打开报表软件后立即闪退。\n- **设备**：办公电脑 PC-02\n- **处理状态**：处理中\n\n如需进一步分析闪退原因，我可以据此检索相关规范资料；要现在做吗？",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": []
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": []
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        }
+      ],
+      "human_checks": [
+        "第一轮先询问编号，第二轮理解用户补充编号的意图。",
+        "第二轮返回软件闪退、PC-02和处理中，不编造修复结果。"
+      ],
+      "run_id": "20261029_025221_365690",
+      "timestamp": "2026-10-29T02:52:23.109222+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "21115ee010230273bbbfdeb568599cd112d7e998b5dc133f4b0b1e19d647756d",
+        "evaluate_agent_live.py": "3ce72438f871d86fb4ff91bb41dd302bb0cc85c51779e977f46765b2dabf7656"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    },
+    {
+      "id": "E05",
+      "name": "多轮纠正编号不混用证据",
+      "status": "auto_pass_pending_review",
+      "error": null,
+      "turns": [
+        {
+          "input": "查询 TK-002 的故障描述和状态。",
+          "status": "completed",
+          "answer": "**工单事实（来源：get_ticket，工单编号 TK-002）**\n\n- 故障描述：电脑能够正常上网，但打开报表软件后立即闪退。\n- 设备：办公电脑 PC-02\n- 处理状态：处理中\n\n你只要求查询故障描述和状态，因此本次未检索知识库资料，也没有对故障原因或处理方案作出判断。如需进一步分析（例如查找闪退的排查建议），请告诉我。",
+          "rag_review": null,
+          "model_calls": 2,
+          "tool_calls": 1
+        },
+        {
+          "input": "刚才编号说错了，改为分析 TK-001。重新查询当前工单，再根据完整描述检索资料，给出带来源的建议，不沿用之前的故障结论。",
+          "status": "completed",
+          "answer": "**工单事实（来源：get_ticket，工单编号 TK-001）**：办公区多台电脑无法连接 Wi-Fi，有线网络可以正常使用；设备记录为办公区无线接入点 AP-01；处理状态为待处理。\n\n**资料建议**：按无线连接故障的处理思路，先确认影响范围是单台、多台还是同一区域，并记录故障开始时间和此前的配置变更；同时收集客户端的具体失败提示，例如找不到无线网络、认证失败、无法获取 IP 地址，必要时请有权限人员读取接入点与控制器日志。当前工单记录有线正常，应优先补充无线连接阶段的信息，但不能据此直接确认故障原因，也不能仅凭工单中记录的设备“AP-01”就认定接入点损坏。[RULE-NET-001@1.0#001]\n\n模拟案例提示，无线密码变更后旧凭据不匹配也可能表现为认证失败而有线正常，但这只是一种可能性，需取得当前工单的认证提示和变更记录后才能进一步判断。[CASE-NET-001@1.0#001]\n\n重启设备、修改配置或中断网络等操作须经人工确认和授权，本助手未执行任何此类操作。[RULE-NET-001@1.0#002]",
+          "rag_review": {
+            "status": "answered",
+            "selected_sources": [
+              {
+                "chunk_id": "RULE-NET-001@1.0#001",
+                "evidence": [
+                  "无线网络或 Wi-Fi 无法连接时，先确认影响范围：单台设备、多台设备，还是同一区域设备均受影响。对比有线与无线网络是否可用，记录故障开始时间和此前的配置变更。",
+                  "继续收集客户端的连接失败提示，例如找不到无线网络、认证失败、无法获取 IP 地址；必要时请有权限的人员读取接入点和控制器日志。工单记录有线正常时，应优先补充无线连接阶段的信息，但不能据此直接确认故障原因。",
+                  "相关设备名称只是工单记录，不能仅凭无法连接就认定接入点损坏。"
+                ],
+                "reason": "直接适用于多台设备无法连接 Wi-Fi 且有线上网正常的排查步骤，并提醒不能仅凭工单中记录的设备名称认定 AP-01 损坏"
+              },
+              {
+                "chunk_id": "RULE-NET-001@1.0#002",
+                "evidence": [
+                  "重启设备、修改配置和中断网络等操作须经人工确认和授权；本项目不执行这些操作。"
+                ],
+                "reason": "说明涉及设备重启、改配置的操作边界，属于建议时的必要限制"
+              },
+              {
+                "chunk_id": "CASE-NET-001@1.0#001",
+                "evidence": [
+                  "某办公区无线密码变更后，部分终端仍保存旧密码，表现为 Wi-Fi 认证失败，而有线网络正常。",
+                  "该案例只说明一种可能原因，不能证明当前工单也是密码问题。"
+                ],
+                "reason": "提供无线认证失败的模拟可能性参考，同时明确不能据此断定当前根因"
+              }
+            ],
+            "excluded_sources": [
+              {
+                "chunk_id": "RULE-SOFT-001@1.0#001",
+                "reason": "针对报表软件闪退，与本次 Wi-Fi 连接故障不匹配"
+              },
+              {
+                "chunk_id": "CASE-SOFT-001@1.0#001",
+                "reason": "属于软件闪退的模拟案例，与本工单现象无关"
+              }
+            ],
+            "answer": "**工单事实（来源：get_ticket，工单编号 TK-001）**：办公区多台电脑无法连接 Wi-Fi，有线网络可以正常使用；设备记录为办公区无线接入点 AP-01；处理状态为待处理。\n\n**资料建议**：按无线连接故障的处理思路，先确认影响范围是单台、多台还是同一区域，并记录故障开始时间和此前的配置变更；同时收集客户端的具体失败提示，例如找不到无线网络、认证失败、无法获取 IP 地址，必要时请有权限人员读取接入点与控制器日志。当前工单记录有线正常，应优先补充无线连接阶段的信息，但不能据此直接确认故障原因，也不能仅凭工单中记录的设备“AP-01”就认定接入点损坏。[RULE-NET-001@1.0#001]\n\n模拟案例提示，无线密码变更后旧凭据不匹配也可能表现为认证失败而有线正常，但这只是一种可能性，需取得当前工单的认证提示和变更记录后才能进一步判断。[CASE-NET-001@1.0#001]\n\n重启设备、修改配置或中断网络等操作须经人工确认和授权，本助手未执行任何此类操作。[RULE-NET-001@1.0#002]"
+          },
+          "model_calls": 3,
+          "tool_calls": 2
+        }
+      ],
+      "plan": null,
+      "checks": [
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-002"
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "工具调用顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "图执行完成",
+          "passed": true,
+          "actual": "completed"
+        },
+        {
+          "name": "模型提出的工具顺序与次数",
+          "passed": true,
+          "actual": [
+            "get_ticket",
+            "search_knowledge"
+          ]
+        },
+        {
+          "name": "查询目标和业务状态",
+          "passed": true,
+          "actual": "TK-001"
+        },
+        {
+          "name": "检索返回有效片段与摘要",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "最终回答非空",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "工单事实引用启发式筛查（仍需人工复核）",
+          "passed": true,
+          "actual": []
+        },
+        {
+          "name": "本轮生成通过引用校验",
+          "passed": true,
+          "actual": null
+        },
+        {
+          "name": "采用预期规范",
+          "passed": true,
+          "actual": [
+            "CASE-NET-001",
+            "RULE-NET-001"
+          ]
+        },
+        {
+          "name": "没有采用预设干扰资料",
+          "passed": true,
+          "actual": []
+        }
+      ],
+      "human_checks": [
+        "第二轮围绕多台设备无线异常、有线可用展开。",
+        "没有沿用TK-002的软件故障事实或结论。",
+        "AP-01是否故障仍待确认，不声称重启或修改配置。"
+      ],
+      "run_id": "20261029_025624_733406",
+      "timestamp": "2026-10-29T02:56:26.529197+08:00",
+      "code_snapshot": {
+        "graph_agent.py": "e0aaa276d04cfb2b8351d1159a01eb2f2a189b4039f9e251a81771b4f701b3ec",
+        "evaluate_agent_live.py": "6fa891ca885a50b9573f6c1fa751a658f6e92dc67d240d4f34db498926ad1e08"
+      },
+      "review_method": "assistant_assisted_output_review",
+      "user_acceptance": "pending",
+      "review_note": "本次输出符合对应场景预期；仍待用户确认，不代表独立人工验收。"
+    }
+  ]
+}
